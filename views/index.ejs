@@ -6,12 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Travel Tracker</title>
   <link rel="stylesheet" href="./styles/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Handlee&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <form action="/add" method="post">
+
+  
+  <form action="/add" method="post" class="flex-container">
+    <h1>Janee's Travel Tracker</h1>
     <input type="text" name="country" autofocus placeholder="<%= locals.error ? error :  'Enter country name'%>">
-    <button type="submit">Add</button>
+    <button type="submit">Add Country </button>
   </form>
 
   <section class="ag-canvas">
@@ -380,7 +386,7 @@
 
     country_codes.forEach(code => {
     if(document.querySelector(`#${code}`)){
-      document.getElementById(code).style.fill='teal' //pull DOM objects with id matching all country codes in array
+      document.getElementById(code).style.fill='#40F8FF' //pull DOM objects with id matching all country codes in array
     } else {
       console.log(code , " not on country list")
     } 
@@ -388,7 +394,6 @@
     });
     
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 
 </html>

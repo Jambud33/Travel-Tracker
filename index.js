@@ -18,7 +18,7 @@ app.use(express.static("public"));
 const db = new pg.Client({
   user: `${process.env.USER}`,
   host: `${process.env.HOST}`,
-  database: "postgresql://world_vyms_user:6FHOIQjSheOKp4rjvbARQZfBRr6NOoMs@dpg-d965s367r5hc73fr1o80-a/world_vyms";
+  database: "postgresql://world_vyms_user:6FHOIQjSheOKp4rjvbARQZfBRr6NOoMs@dpg-d965s367r5hc73fr1o80-a/world_vyms",
   //database: `${process.env.DATABASE}`,
   password: `${process.env.PASSWORD}`,
   port: `${process.env.PORT}`

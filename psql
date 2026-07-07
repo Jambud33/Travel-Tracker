@@ -1,0 +1,339 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.18
+-- Dumped by pg_dump version 15.4
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: countries; Type: TABLE; Schema: public; Owner: world_vyms_user
+--
+
+CREATE TABLE public.countries (
+    id integer NOT NULL,
+    country_code character varying(2),
+    country_name character varying(100),
+    visited boolean DEFAULT false
+);
+
+
+ALTER TABLE public.countries OWNER TO world_vyms_user;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE; Schema: public; Owner: world_vyms_user
+--
+
+CREATE SEQUENCE public.countries_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.countries_id_seq OWNER TO world_vyms_user;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: world_vyms_user
+--
+
+ALTER SEQUENCE public.countries_id_seq OWNED BY public.countries.id;
+
+
+--
+-- Name: countries id; Type: DEFAULT; Schema: public; Owner: world_vyms_user
+--
+
+ALTER TABLE ONLY public.countries ALTER COLUMN id SET DEFAULT nextval('public.countries_id_seq'::regclass);
+
+
+--
+-- Data for Name: countries; Type: TABLE DATA; Schema: public; Owner: world_vyms_user
+--
+
+COPY public.countries (id, country_code, country_name, visited) FROM stdin;
+1	AF	Afghanistan	f
+2	AX	Aland Islands	f
+3	AL	Albania	f
+4	DZ	Algeria	f
+5	AS	American Samoa	f
+6	AD	Andorra	f
+7	AO	Angola	f
+8	AI	Anguilla	f
+9	AQ	Antarctica	f
+10	AG	Antigua and Barbuda	f
+11	AR	Argentina	f
+12	AM	Armenia	f
+13	AW	Aruba	f
+15	AT	Austria	f
+16	AZ	Azerbaijan	f
+17	ST	Sao Tome and Principe	f
+19	BH	Bahrain	f
+20	BD	Bangladesh	f
+21	BB	Barbados	f
+22	BY	Belarus	f
+24	BZ	Belize	f
+25	BJ	Benin	f
+26	BT	Bhutan	f
+27	BO	Bolivia	f
+28	BA	Bosnia and Herzegovina	f
+29	BW	Botswana	f
+30	BV	Bouvet Island	f
+31	BR	Brazil	f
+32	VG	British Virgin Islands	f
+33	IO	British Indian Ocean Territory	f
+34	BN	Brunei Darussalam	f
+35	BG	Bulgaria	f
+36	BF	Burkina Faso	f
+37	BI	Burundi	f
+38	KH	Cambodia	f
+39	CM	Cameroon	f
+40	CA	Canada	f
+41	CV	Cape Verde	f
+42	KY	Cayman Islands	f
+43	CF	Central African Republic	f
+44	TD	Chad	f
+45	CL	Chile	f
+46	CN	China	f
+47	HK	Hong Kong, SAR China	f
+49	MO	Macao, SAR China	f
+50	CX	Christmas Island	f
+51	CC	Cocos (Keeling) Islands	f
+52	CO	Colombia	f
+53	KM	Comoros	f
+54	CD	Congo, (Kinshasa)	f
+55	CK	Cook Islands	f
+56	CI	Côte d'Ivoire	f
+57	HR	Croatia	f
+58	CU	Cuba	f
+59	CY	Cyprus	f
+62	DJ	Djibouti	f
+63	DM	Dominica	f
+64	DO	Dominican Republic	f
+65	EC	Ecuador	f
+66	EG	Egypt	f
+68	GQ	Equatorial Guinea	f
+69	ER	Eritrea	f
+70	EE	Estonia	f
+71	ET	Ethiopia	f
+72	FK	Falkland Islands (Malvinas)	f
+73	FO	Faroe Islands	f
+74	FJ	Fiji	f
+75	FI	Finland	f
+77	GF	French Guiana	f
+79	TF	French Southern Territories	f
+80	GA	Gabon	f
+81	GM	Gambia	f
+82	GE	Georgia	f
+84	GH	Ghana	f
+85	GI	Gibraltar	f
+86	GR	Greece	f
+87	GL	Greenland	f
+88	GD	Grenada	f
+89	GP	Guadeloupe	f
+90	GU	Guam	f
+91	GT	Guatemala	f
+92	GG	Guernsey	f
+93	GN	Guinea	f
+94	GW	Guinea-Bissau	f
+95	GY	Guyana	f
+96	HT	Haiti	f
+97	HM	Heard and Mcdonald Islands	f
+99	HN	Honduras	f
+100	HU	Hungary	f
+101	IS	Iceland	f
+102	FM	Micronesia, Federated States of	f
+103	RE	Réunion	f
+105	IR	Iran, Islamic Republic of	f
+106	IQ	Iraq	f
+107	IE	Ireland	f
+108	IM	Isle of Man	f
+109	IL	Israel	f
+111	JM	Jamaica	f
+112	JP	Japan	f
+113	JE	Jersey	f
+114	JO	Jordan	f
+115	MD	Moldova	f
+116	KZ	Kazakhstan	f
+118	KI	Kiribati	f
+119	KP	Korea (North)	f
+120	KR	Korea (South)	f
+121	KW	Kuwait	f
+122	KG	Kyrgyzstan	f
+123	LA	Lao PDR	f
+124	LV	Latvia	f
+125	LB	Lebanon	f
+126	LS	Lesotho	f
+127	LR	Liberia	f
+128	LY	Libya	f
+129	LI	Liechtenstein	f
+130	LT	Lithuania	f
+131	LU	Luxembourg	f
+132	MK	Macedonia, Republic of	f
+133	MG	Madagascar	f
+134	MW	Malawi	f
+135	MY	Malaysia	f
+136	MV	Maldives	f
+137	BM	Bermuda	f
+138	ML	Mali	f
+139	MT	Malta	f
+140	MH	Marshall Islands	f
+141	MQ	Martinique	f
+142	MR	Mauritania	f
+143	MU	Mauritius	f
+144	YT	Mayotte	f
+146	MC	Monaco	f
+147	MN	Mongolia	f
+148	ME	Montenegro	f
+149	MS	Montserrat	f
+150	MA	Morocco	f
+151	MZ	Mozambique	f
+152	MM	Myanmar	f
+153	NA	Namibia	f
+154	NR	Nauru	f
+155	NP	Nepal	f
+156	NL	Netherlands	f
+157	AN	Netherlands Antilles	f
+158	NC	New Caledonia	f
+160	NI	Nicaragua	f
+161	NE	Niger	f
+162	NG	Nigeria	f
+163	NU	Niue	f
+164	NF	Norfolk Island	f
+165	MP	Northern Mariana Islands	f
+166	NO	Norway	f
+167	OM	Oman	f
+117	KE	Kenya	t
+83	DE	Germany	t
+110	IT	Italy	t
+76	FR	France	t
+145	MX	Mexico	t
+48	CR	Costa Rica	t
+67	SV	El Salvador	t
+18	BS	Bahamas	t
+14	AU	Australia	t
+159	NZ	New Zealand	t
+104	ID	Indonesia	t
+60	CZ	Czech Republic	t
+98	VA	Holy See (Vatican City State)	t
+23	BE	Belgium	t
+168	PK	Pakistan	f
+169	PW	Palau	f
+170	PS	Palestinian Territory	f
+171	PA	Panama	f
+172	PG	Papua New Guinea	f
+173	PY	Paraguay	f
+174	PE	Peru	f
+175	PH	Philippines	f
+176	PN	Pitcairn	f
+177	PT	Portugal	f
+178	PR	Puerto Rico	f
+179	QA	Qatar	f
+180	RO	Romania	f
+181	RU	Russian Federation	f
+183	BL	Saint-Barthélemy	f
+184	SH	Saint Helena	f
+185	KN	Saint Kitts and Nevis	f
+186	LC	Saint Lucia	f
+187	MF	Saint-Martin (French part)	f
+188	PM	Saint Pierre and Miquelon	f
+189	VC	Saint Vincent and Grenadines	f
+190	WS	Samoa	f
+191	SM	San Marino	f
+192	SA	Saudi Arabia	f
+193	SN	Senegal	f
+194	RS	Serbia	f
+195	SC	Seychelles	f
+196	SL	Sierra Leone	f
+197	SG	Singapore	f
+198	SK	Slovakia	f
+199	SI	Slovenia	f
+200	SB	Solomon Islands	f
+201	SO	Somalia	f
+202	ZA	South Africa	f
+203	GS	South Georgia and the South Sandwich Islands	f
+204	SS	South Sudan	f
+206	LK	Sri Lanka	f
+207	SD	Sudan	f
+208	SR	Suriname	f
+209	SJ	Svalbard and Jan Mayen Islands	f
+210	SZ	Swaziland	f
+211	SE	Sweden	f
+213	SY	Syrian Arab Republic (Syria)	f
+214	TW	Taiwan, Republic of China	f
+215	TJ	Tajikistan	f
+216	TZ	Tanzania, United Republic of	f
+218	IN	India	f
+219	CG	Congo (Brazzaville)	f
+220	PL	Poland	f
+221	TL	Timor-Leste	f
+222	TG	Togo	f
+223	TK	Tokelau	f
+224	TO	Tonga	f
+225	TT	Trinidad and Tobago	f
+226	TN	Tunisia	f
+227	TR	Turkey	f
+228	TM	Turkmenistan	f
+229	TC	Turks and Caicos Islands	f
+230	TV	Tuvalu	f
+231	UG	Uganda	f
+232	UA	Ukraine	f
+233	AE	United Arab Emirates	f
+235	US	United States of America	f
+236	UM	US Minor Outlying Islands	f
+237	UY	Uruguay	f
+238	UZ	Uzbekistan	f
+239	VU	Vanuatu	f
+240	VE	Venezuela (Bolivarian Republic)	f
+241	VN	Viet Nam	f
+242	VI	Virgin Islands, US	f
+243	WF	Wallis and Futuna Islands	f
+244	EH	Western Sahara	f
+245	YE	Yemen	f
+246	ZM	Zambia	f
+247	ZW	Zimbabwe	f
+205	ES	Spain	t
+61	DK	Denmark	t
+212	CH	Switzerland	t
+234	GB	United Kingdom	t
+182	RW	Rwanda	t
+78	PF	French Polynesia	t
+217	TH	Thailand	t
+\.
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: world_vyms_user
+--
+
+SELECT pg_catalog.setval('public.countries_id_seq', 1, false);
+
+
+--
+-- Name: countries countries_pkey; Type: CONSTRAINT; Schema: public; Owner: world_vyms_user
+--
+
+ALTER TABLE ONLY public.countries
+    ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

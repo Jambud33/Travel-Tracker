@@ -10,21 +10,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // connect to database
+
 const db = new pg.Client({
   user: `${process.env.USER}`,
+  database: `${process.env.DATABASE}`,
   host: `${process.env.HOST}`,
-  database: `${process.env.DB_URL}`,
-  //database: `${process.env.DATABASE}`,
+  //host: `${process.env.DB_URL}`,
   password: `${process.env.PASSWORD}`,
   port: `${process.env.PORT}`
 });
-db.connect();    
+
+/*
+const db = new pg.Client({
+  connectionString: process.env.DB_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+*/
+//db.connect();    
 
 
 // function to retrieve visited countries list from db
 async function checkVisited(){
+ await db.connect();
+ 
   try{
-let response = await db.query("SELECT country_code FROM world WHERE visited = 'true'");  
+
+let response = await db.query("SELECT country_code FROM public.world WHERE visited = 'true'");  
+console.log(response);
 const resp = response.rows;
 console.log("response: "+ JSON.stringify(resp));
 let list =[];
@@ -36,9 +50,10 @@ console.log("list: "+ list);
 return list
   }catch {(err => {
     console.error("Async operation failed:", err); 
-  });
+  })
+  } finally{
+ db.end();
   }
-
 }
 
 /*---------------REST ACTIONS---------------*/

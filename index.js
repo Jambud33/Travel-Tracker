@@ -11,7 +11,10 @@ import 'dotenv/config';
 const app = express();
 const port = 3000;
 
-// code from local development on potgresql:
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
+
+// connect to database
 const db = new pg.Client({
   user: `${process.env.USER}`,
   host: `${process.env.HOST}`,
@@ -19,29 +22,20 @@ const db = new pg.Client({
   password: `${process.env.PASSWORD}`,
   port: `${process.env.PORT}`
 });
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
-
-// code from local development on potgresql:
 db.connect();    
+
 
 // function to retrieve visited countries list from db
 async function checkVisited(){
-// code from local development on potgresql:
-let response = await db.query("SELECT code FROM public.visited_countries");  
-/*const {data} = await supabase
-.from('visited_countries')
-.select() */
-
-let list =[];
+let response = await db.query("SELECT country_code FROM public.countries WHERE visited = 'true'");  
 const resp = response.rows;
-
+console.log("response: "+ JSON.stringify(resp));
+let list =[];
 
 resp.forEach((item)=>{
-  list.push(item.code);
+  list.push(item.country_code);
 });
-
+console.log("list: "+ list);
 return list
 }
 
@@ -55,36 +49,10 @@ app.get("/", async (req, res) => {
 //POST action when new country added
 app.post("/add", async (req,res)=>{
   const newCountry = req.body.country;
-  const visited = await checkVisited();
-  console.log("NC: "+ newCountry);
-  try{
-  // code from local development on potgresql:
-  let response = await db.query(`SELECT country_code FROM countries WHERE country_name ILIKE '%${newCountry}%' OR country_name SIMILAR TO '${newCountry}'`);
-  // newCountryCode = newCountryCode.rows[0].country_code;
-  /*const resp = await supabase
-  .from('countries')
-  .select('country_code')
-  .ilike('country_name', `%${newCountry}%`) */
- // const newCountryCode = resp.data[0].country_code;
- const newCountryCode = response.rows[0].country_code;
- console.log("DATA: " + JSON.stringify(newCountryCode));
-  try{
-    // code from local development on potgresql:
-  const text ='INSERT INTO visited_countries (name,code) VALUES($1,$2)';
-  const values = [newCountry, newCountryCode];
-  await db.query(text, values);
 
-   /*await supabase 
-   .from('visited_countries')
-   .insert({ name: `${newCountry}`, code: `${newCountryCode}` } ); 
-    */
-  
-  }catch (error) {
-    console.log("country already accounted for!")
-    res.locals.error= `${newCountry} already accounted for!`;
-  }
-
-  } catch (error){
+  try{
+  await db.query(`UPDATE countries SET visited = 'true' WHERE country_name ILIKE '%${newCountry}%' OR country_name SIMILAR TO '${newCountry}'`);
+   } catch (error){
     console.log("not in db");
     res.locals.error= `${newCountry} not in database. Please try again`;
   }

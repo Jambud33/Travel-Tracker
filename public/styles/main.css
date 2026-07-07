@@ -3,8 +3,7 @@ h1{
   font-family: "Handlee", cursive;
   font-weight: 400;
   font-style: normal;
-  font-size: 3rem;
-  margin-left: 70px;
+  font-size: 2rem;
 }
 
 
@@ -19,26 +18,28 @@ h2{
 body{
     background-color: #152636;
     padding: 1% 5%;
+    height: 100vh;
 }
 
 .flex-container{
+    flex-direction: column;
     display: flex;
-    align-items: center;
-    margin-bottom: 40px;
+    justify-content: flex-start;
+    margin-bottom: -20px;
 }
 
 input{
-    width: 40%;
     height: 2rem;
-    margin: 20px 50px;
+    margin: 20px 10px;
     padding: 0.5rem;
 }
 
 button{
-    width: 8%;
     background-color: white; 
     height: 3rem;
     border-radius: 3px;
+    position: relative;
+    z-index: 2;
 }
 
 button:hover{
@@ -46,6 +47,17 @@ button:hover{
     font-weight: 700;
      font-family: "Quicksand", sans-serif;
 
+}
+
+.top-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+svg{
+    margin: -160px 30px 30px 180px;
+    height: 100vh;
 }
 
 path{

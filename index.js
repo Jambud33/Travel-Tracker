@@ -38,8 +38,9 @@ resp.forEach((item)=>{
 });
 console.log("list: "+ list);
 return list
-  }catch (error){
-    console.log(error);
+  }catch {(err => {
+    console.error("Async operation failed:", err); 
+  });
   }
 
 }

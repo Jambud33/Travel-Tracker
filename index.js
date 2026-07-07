@@ -9,7 +9,7 @@ import 'dotenv/config';
 
 //const supabase = createClient(supabaseURL, supabaseKey);
 const app = express();
-const port = 3000;
+//const port = 5432;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -62,7 +62,7 @@ app.post("/add", async (req,res)=>{
   res.render("index.ejs",{countries: codes, total: codes.length });
 });
 
-
+/*
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
-});
+});*/

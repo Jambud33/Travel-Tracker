@@ -2,12 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import 'dotenv/config';
-//import { createClient } from '@supabase/supabase-js'
 
-//const supabaseURL = `${process.env.DB_URL}`;
-//const supabaseKey = `${process.env.SB_KEY}`;
-
-//const supabase = createClient(supabaseURL, supabaseKey);
 const app = express();
 const port = `${process.env.PORT}`;
 
@@ -18,7 +13,7 @@ app.use(express.static("public"));
 const db = new pg.Client({
   user: `${process.env.USER}`,
   host: `${process.env.HOST}`,
-  database: "postgresql://world_vyms_user:6FHOIQjSheOKp4rjvbARQZfBRr6NOoMs@dpg-d965s367r5hc73fr1o80-a/world_vyms",
+  database: `${process.env.DB_URL}`,
   //database: `${process.env.DATABASE}`,
   password: `${process.env.PASSWORD}`,
   port: `${process.env.PORT}`
@@ -29,7 +24,7 @@ db.connect();
 // function to retrieve visited countries list from db
 async function checkVisited(){
   try{
-let response = await db.query("SELECT country_code FROM public.countries WHERE visited = 'true'");  
+let response = await db.query("SELECT country_code FROM world WHERE visited = 'true'");  
 const resp = response.rows;
 console.log("response: "+ JSON.stringify(resp));
 let list =[];
@@ -58,7 +53,7 @@ app.post("/add", async (req,res)=>{
   const newCountry = req.body.country;
 
   try{
-  await db.query(`UPDATE countries SET visited = 'true' WHERE country_name ILIKE '%${newCountry}%' OR country_name SIMILAR TO '${newCountry}'`);
+  await db.query(`UPDATE world SET visited = 'true' WHERE country_name ILIKE '%${newCountry}%' OR country_name SIMILAR TO '${newCountry}'`);
    } catch (error){
     console.log("not in db");
     res.locals.error= `${newCountry} not in database. Please try again`;

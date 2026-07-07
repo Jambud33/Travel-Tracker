@@ -27,6 +27,7 @@ db.connect();
 
 // function to retrieve visited countries list from db
 async function checkVisited(){
+  try{
 let response = await db.query("SELECT country_code FROM public.countries WHERE visited = 'true'");  
 const resp = response.rows;
 console.log("response: "+ JSON.stringify(resp));
@@ -37,6 +38,10 @@ resp.forEach((item)=>{
 });
 console.log("list: "+ list);
 return list
+  }catch (error){
+    console.log(error);
+  }
+
 }
 
 /*---------------REST ACTIONS---------------*/

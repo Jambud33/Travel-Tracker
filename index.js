@@ -9,7 +9,7 @@ import 'dotenv/config';
 
 //const supabase = createClient(supabaseURL, supabaseKey);
 const app = express();
-const port = 5432;
+const port = `${process.env.PORT}`;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -18,7 +18,8 @@ app.use(express.static("public"));
 const db = new pg.Client({
   user: `${process.env.USER}`,
   host: `${process.env.HOST}`,
-  database: `${process.env.DATABASE}`,
+  database: "postgresql://world_vyms_user:6FHOIQjSheOKp4rjvbARQZfBRr6NOoMs@dpg-d965s367r5hc73fr1o80-a/world_vyms";
+  //database: `${process.env.DATABASE}`,
   password: `${process.env.PASSWORD}`,
   port: `${process.env.PORT}`
 });

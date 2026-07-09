@@ -10,7 +10,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // connect to database
+const db = new pg.Client({
+  user: USER,
+  database: DATABASE,
+  host: HOST,
+  password: PASSWORD,
+  port: 5432,
+  ssl: { rejectUnauthorized: false } //often required for remote cloud DBs according to google ai
+});
 
+/*
 const db = new pg.Client({
   user: `${process.env.USER}`,
   database: `${process.env.DATABASE}`,
@@ -19,7 +28,7 @@ const db = new pg.Client({
   port: 5432,
   ssl: { rejectUnauthorized: false } //often required for remote cloud DBs according to google ai
 });
-
+*/
 /*
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,

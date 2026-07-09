@@ -11,33 +11,33 @@ app.use(express.static("public"));
 
 // connect to database
 
-const db = new pg.Client({
+const db = new pg.Pool({
   user: `${process.env.USER}`,
   database: `${process.env.DATABASE}`,
   host: `${process.env.HOST}`,
-  //host: `${process.env.DB_URL}`,
   password: `${process.env.PASSWORD}`,
-  port: `${process.env.PORT}`
+  port: 5432,
+  ssl: { rejectUnauthorized: false } //often required for remote cloud DBs according to google ai
 });
 
 /*
-const db = new pg.Client({
-  connectionString: process.env.DB_URL,
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
 });
-*/
-//db.connect();    
+*/  
 
+await db.connect();
 
 // function to retrieve visited countries list from db
 async function checkVisited(){
- await db.connect();
+ 
  
   try{
 
-let response = await db.query("SELECT country_code FROM public.world WHERE visited = 'true'");  
+let response = await db.query("SELECT country_code FROM countries WHERE visited = 'true'");  
 console.log(response);
 const resp = response.rows;
 console.log("response: "+ JSON.stringify(resp));
@@ -52,7 +52,6 @@ return list
     console.error("Async operation failed:", err); 
   })
   } finally{
- db.end();
   }
 }
 
@@ -66,9 +65,9 @@ app.get("/", async (req, res) => {
 //POST action when new country added
 app.post("/add", async (req,res)=>{
   const newCountry = req.body.country;
-
+  
   try{
-  await db.query(`UPDATE world SET visited = 'true' WHERE country_name ILIKE '%${newCountry}%' OR country_name SIMILAR TO '${newCountry}'`);
+  await db.query(`UPDATE countries SET visited = 'true' WHERE country_name ILIKE '%${newCountry}%' OR country_name SIMILAR TO '${newCountry}'`);
    } catch (error){
     console.log("not in db");
     res.locals.error= `${newCountry} not in database. Please try again`;

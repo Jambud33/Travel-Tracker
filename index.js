@@ -11,10 +11,10 @@ app.use(express.static("public"));
 
 // connect to database
 const db = new pg.Client({
-  user: USER,
-  database: DATABASE,
-  host: HOST,
-  password: PASSWORD,
+  user: process.env.USER,
+  database: process.env.DATABASE,
+  host: process.env.HOST,
+  password: process.env.PASSWORD,
   port: 5432,
   ssl: { rejectUnauthorized: false } //often required for remote cloud DBs according to google ai
 });
